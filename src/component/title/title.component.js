@@ -1,19 +1,27 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import FireBaseContext from '../../context';
 
 const Title = ({title = 'change me'}) => {
+  const [name, setName] = useState('uuu');
   const database = useContext(FireBaseContext);
-
-debugger
-  database.ref().child('user').on('value', snap => console.log(snap.val()))
-  // useEffect(() => {
-  // })
+  const myDay = database.ref().child('user');
+  useEffect(() => {
+    myDay.on('value', snap => {
+      const value = snap.val().name;
+      if (name !== value) {
+        setName(value)
+      }
+    })
+    return () => {
+      myDay.off('value');
+    }
+  })
   
-  // myDay.on('value', snap => {
-  //   console.log(`fire is away: ${snap.val()}`)
-  // })
   return (
-    <div>Title: {title}</div>
+    <div>
+      <div>Title: {title}</div>
+      <div>By: {name}</div>
+    </div>
   );
 }
 
