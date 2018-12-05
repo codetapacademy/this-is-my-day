@@ -1,15 +1,17 @@
-import React, { useContext } from 'react';
-import { debug } from 'util';
+import React, { useContext, useEffect } from 'react';
+import FireBaseContext from '../../context';
 
 const Title = ({title = 'change me'}) => {
-  const database = useContext('firebase');
-  console.log(database)
-  // debugger
+  const database = useContext(FireBaseContext);
 
-  const myDay = database.ref('my-day');
-  myDay.on('value', snap => {
-    console.log(`fire is away: ${snap.val()}`)
-  })
+debugger
+  database.ref().child('user').on('value', snap => console.log(snap.val()))
+  // useEffect(() => {
+  // })
+  
+  // myDay.on('value', snap => {
+  //   console.log(`fire is away: ${snap.val()}`)
+  // })
   return (
     <div>Title: {title}</div>
   );

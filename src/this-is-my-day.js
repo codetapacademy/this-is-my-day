@@ -1,20 +1,20 @@
 import React from 'react';
-import firebase from './firebase';
+import { database, /*auth, googleAuthProvider, storage*/ } from './firebase';
+import FireBaseContext from './context'
 import Title from './component/title';
 import './this-is-my-day.css';
 
-const FireBaseContext = React.createContext();
-console.log(firebase, FireBaseContext)
+// console.log(FireBaseContext)
+// console.log(database)
 
 const ThisIsMyDay = () => {
   
   return (
-      <FireBaseContext.Provider firebase={firebase}>
-        <div className="App">
-          <Title title="React Hooks"/>
-        </div>
-      </FireBaseContext.Provider>
+    <FireBaseContext.Provider value={database}>
+      <div className="App">
+        <Title title="React Hooks"/>
+      </div>
+    </FireBaseContext.Provider>
     )
 }
-
 export default ThisIsMyDay;
